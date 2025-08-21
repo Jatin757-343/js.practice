@@ -27,14 +27,30 @@ const mySym = Symbol("key1")
  
 
  JsUser.greeting = function(){
-    console.log("Hello js user");  
- }
+//     console.log("Hello js user");  
+  };
  
  JsUser.greetingTwo = function(){
-     console.log(`Hello ${this.Name}`);
+//      console.log(`Hello ${this.Name}`);
+  };
+
+//  console.log(JsUser.greeting());
+//  console.log(JsUser.greetingTwo());
+ 
+
+ const course = {
+   coursename: "BCA",
+   price: 999,
+   courseInstructor: "Jatin"
  }
 
+//  course.courseInstructor
 
- console.log(JsUser.greeting());
- console.log(JsUser.greetingTwo());
- 
+const {courseInstructor: instructor} = course
+console.log(instructor);
+
+// {
+//    "name": "Jatin",
+//    "age": 20, 
+
+// }

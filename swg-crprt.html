@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Royal Feast Restaurant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Chart.js for Analytics -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ------------------ GLOBAL STYLES ------------------ */
+body {
+    margin: 0;
+    background: #000;
+    color: #e8c873;
+    font-family: "Poppins", sans-serif;
+}
+
+h1, h2, h3 {
+    color: #e8c873;
+}
+
+a {
+    text-decoration: none;
+    color: #e8c873;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+/* ------------------ NAVBAR ------------------ */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    background: #111;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 1px solid #e8c87326;
+}
+
+nav a {
+    margin: 0 15px;
+    font-weight: 600;
+}
+
+/* ------------------ HERO SECTION ------------------ */
+header {
+    background: url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg') center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 80px;
+}
+
+header h1 {
+    font-size: 60px;
+}
+
+header button {
+    background: #e8c873;
+    border: none;
+    padding: 12px 30px;
+    color: #000;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* ------------------ ABOUT SECTION ------------------ */
+#about {
+    padding: 80px 0;
+    background: #0a0a0a;
+    text-align: center;
+}
+
+#about p {
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+/* ------------------ MENU SECTION ------------------ */
+#menu {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.menu-card {
+    background: #111;
+    border: 1px solid #e8c8732d;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-card:hover {
+    transform: scale(1.05);
+}
+
+.menu-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.menu-card h3 {
+    margin: 10px 0 5px;
+}
+
+.price {
+    color: #fff;
+}
+
+/* ------------------ POPUP MENU DETAILS ------------------ */
+#itemModal, #orderModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000d5;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background: #111;
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #e8c87363;
+}
+
+.modal-box img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.modal-box button {
+    margin-top: 20px;
+    background: #e8c873;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* ------------------ ANALYTICS SECTION ------------------ */
+#analytics {
+    padding: 80px 0;
+    background: #0a0a0a;
+}
+
+.chart-container {
+    width: 70%;
+    margin: auto;
+}
+
+/* ------------------ FOOTER ------------------ */
+footer {
+    padding: 40px;
+    text-align: center;
+    background: #111;
+    border-top: 1px solid #e8c87326;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ------------------ NAVBAR ------------------ -->
+<nav>
+    <div class="logo"><b>Royal Feast</b></div>
+    <div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#analytics">Analytics</a>
+    </div>
+</nav>
+
+<!-- ------------------ HERO ------------------ -->
+<header id="home">
+    <div>
+        <h1>Welcome to Royal Feast</h1>
+        <p>Black & Gold Luxury Dining</p>
+        <button onclick="document.querySelector('#menu').scrollIntoView({behavior:'smooth'})">
+            Explore Menu
+        </button>
+    </div>
+</header>
+
+<!-- ------------------ ABOUT SECTION ------------------ -->
+<section id="about">
+    <h2>About Us</h2>
+    <p>
+        Royal Feast Restaurant brings authentic taste & luxury dining 
+        with the finest chefs preparing your meals. Visit us at  
+        <b>1234 Golden Street, Mumbai, MH 400001</b>.  
+        Enjoy premium seating, delicious cuisine and top-class service.
+    </p>
+</section>
+
+<!-- ------------------ MENU SECTION ------------------ -->
+<section id="menu">
+    <h2>Our Menu</h2>
+
+    <div class="menu-grid">
+
+        <!-- Biryani Example -->
+        <div class="menu-card" onclick="openItem('Biryani','350','https://images.pexels.com/photos/11178698/pexels-photo-11178698.jpeg')">
+            <img src="https://images.pexels.com/photos/11178698/pexels-photo-11178698.jpeg">
+            <h3>Biryani</h3>
+            <p class="price">₹350</p>
+        </div>
+
+        <div class="menu-card" onclick="openItem('Butter Chicken','420','https://images.pexels.com/photos/9609861/pexels-photo-9609861.jpeg')">
+            <img src="https://images.pexels.com/photos/9609861/pexels-photo-9609861.jpeg">
+            <h3>Butter Chicken</h3>
+            <p class="price">₹420</p>
+        </div>
+
+        <div class="menu-card" onclick="openItem('Chicken Tikka','300','https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg')">
+            <img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg">
+            <h3>Chicken Tikka</h3>
+            <p class="price">₹300</p>
+        </div>
+
+        <div class="menu-card" onclick="openItem('Paneer Masala','260','https://images.pexels.com/photos/106343/pexels-photo-106343.jpeg')">
+            <img src="https://images.pexels.com/photos/106343/pexels-photo-106343.jpeg">
+            <h3>Paneer Masala</h3>
+            <p class="price">₹260</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ------------------ POPUP MENU MODAL ------------------ -->
+<div id="itemModal">
+    <div class="modal-box">
+        <img id="itemImg">
+        <h2 id="itemName"></h2>
+        <p id="itemPrice"></p>
+        <button onclick="openOrder()">Order Now</button>
+        <button onclick="closeItem()">Close</button>
+    </div>
+</div>
+
+<!-- ------------------ ORDER MODAL ------------------ -->
+<div id="orderModal">
+    <div class="modal-box">
+        <h2>Order Placed!</h2>
+        <p>Your food will be delivered soon.</p>
+        <button onclick="closeOrder()">Close</button>
+    </div>
+</div>
+
+<!-- ------------------ ANALYTICS SECTION ------------------ -->
+<section id="analytics">
+    <h2 style="text-align:center;">Monthly Orders Analytics</h2>
+
+    <div class="chart-container">
+        <canvas id="ordersChart"></canvas>
+    </div>
+</section>
+
+<!-- ------------------ FOOTER ------------------ -->
+<footer>
+    © 2025 Royal Feast Restaurant  
+    <br>All Rights Reserved
+</footer>
+
+<script>
+/* ------------------ MENU ITEM MODAL ------------------ */
+function openItem(name, price, img) {
+    document.getElementById("itemName").innerText = name;
+    document.getElementById("itemPrice").innerText = "Price: ₹" + price;
+    document.getElementById("itemImg").src = img;
+    document.getElementById("itemModal").style.display = "flex";
+}
+
+function closeItem() {
+    document.getElementById("itemModal").style.display = "none";
+}
+
+/* ------------------ ORDER MODAL ------------------ */
+function openOrder() {
+    document.getElementById("orderModal").style.display = "flex";
+}
+
+function closeOrder() {
+    document.getElementById("orderModal").style.display = "none";
+    closeItem();
+}
+
+/* ------------------ CHART (ANALYTICS) ------------------ */
+const ctx = document.getElementById('ordersChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: 'Monthly Orders',
+            data: [120, 150, 180, 220, 260, 300, 340, 310, 290, 330, 380, 420],
+            borderColor: '#e8c873',
+            backgroundColor: 'transparent',
+            borderWidth: 3,
+            tension: 0.4
+        }]
+    },
+    options: {
+        scales: {
+            y: { beginAtZero: false }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
